@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>club</title>
+</head>
+<body>
+<style type="text/css">
+img,#background{
+	width:100%;
+	height:100%;
+	}
+select{
+	position:fixed;
+	top:100px;
+	left:600px;
+	font-size: 24px;
+	width:20%;
+	border-radius: 12px;
+	}
+input{
+	position:fixed;
+	top:100px;
+	left:920px;
+	font-size: 24px;
+	border-radius: 12px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	}
+input:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+</style>
+
+ 
+<div>
+<img src="static/login_background.jpeg" id="background" />
+</div>
+
+<div id="choose">
+<form action="/user" method="post" enctype="multipart/form-data">
+<select name="name">
+<option value="None">-choose your name-</option>
+{% for name in members %}
+	<option value={{name}}>{{name}}</option>
+{% endfor %}
+</select>
+<input type="submit" value="Entry">
+
+</form>
+
+</div>
+
+</div>
+</body>
+</html>

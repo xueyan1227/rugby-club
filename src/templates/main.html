@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Super Club</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var news2={{news | safe}};
+var user={{user_info | safe}};
+var size='{{news_size}}';
+var head=['Firstname','Lastname','Addr1','Addr2','City','Email','Phone'];
+var races={{fixtures | safe}}
+
+//click news will be execute
+function Note(){
+	var divTag = document.getElementById("contents_head");	//get update field
+	divTag.innerHTML = "";	//update background
+    
+	//loop produce contents
+	for(var i=0;i<size;i++){
+		var hTag = document.createElement("h1");
+		var pTag = document.createElement("p1");
+		divTag.appendChild(hTag);
+		divTag.appendChild(pTag);
+		hTag.innerHTML=i+1+") Title: "+news2[i]['NewsHeader']+'<br>'+news2[i]['NewsDate']+'<br>'+news2[i]['NewsByline']
+		pTag.innerHTML=news2[i]['News']
+	}
+}
+
+//click Race will be excete
+function Race(){
+    var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var tableTag=document.createElement("table");
+	divTag.appendChild(tableTag)
+	
+	tableTag.setAttribute("align","left");
+	
+	var trTag_head=document.createElement("tr");
+	var tdTag_head_date=document.createElement("td");
+	var tdTag_head_home=document.createElement("td");
+	var tdTag_head_away=document.createElement("td");
+	
+	tdTag_head_home.innerHTML = "HomeTeam";
+	tdTag_head_away.innerHTML = "AwayTeam";
+	tdTag_head_date.innerHTML = "Date";
+	
+	tableTag.appendChild(trTag_head);
+	trTag_head.appendChild(tdTag_head_home);
+	trTag_head.appendChild(tdTag_head_away);
+	trTag_head.appendChild(tdTag_head_date);
+	//alert(races[0]['date']);
+	for(var i=0;i< races.length;i++){
+		var trTag=document.createElement("tr");
+		var tdTag_date=document.createElement("td");
+		var tdTag_home=document.createElement("td");
+		var tdTag_away=document.createElement("td");
+		
+		tdTag_date.innerHTML = races[i]['date'];
+		tdTag_home.innerHTML = races[i]['HomeTeamName'];
+		tdTag_away.innerHTML = races[i]['AwayTeamName'];
+		
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag_home);
+		trTag.appendChild(tdTag_away);
+		trTag.appendChild(tdTag_date);
+		
+	}
+	
+	document.getElementById("contents").innerHTML="比赛信息";
+} 
+
+//click Private will excute
+function Private(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	//form tag set
+	var formTag=document.createElement("form");
+	formTag.setAttribute("action","update");//action="/signin" method="post"
+	formTag.setAttribute("method","post");//action="/signin" method="post"
+	formTag.setAttribute("enctype","multipart/form-data");//enctype="multipart/form-data"
+	formTag.setAttribute("target","hiddenIFrame");//target="hiddenIFrame"
+	
+	//table tag set
+	var tableTag=document.createElement("table");
+	tableTag.setAttribute("align","left");//align="left"
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	
+	//contents
+	for(var i=0;i< user.length-1;i++){
+		var trTag=document.createElement("tr");
+		var tdTag1=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		var inputTag=document.createElement("input");
+		
+		tdTag1.innerHTML = head[i]+": "; //<input type="name" name="username" placeholder="jack" />
+		inputTag.setAttribute("type","text");
+		inputTag.setAttribute("name",head[i]);
+		inputTag.setAttribute("placeholder",user[head[i]]);
+		//alert("done");
+		
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag1);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(inputTag);
+	}
+	
+	//<iframe style="display:none" name="hiddenIFrame" id="hiddenIFrame"/>
+	var iframeTag=document.createElement("iframe");
+	iframeTag.setAttribute("style","display:none");
+	iframeTag.setAttribute("name","hiddenIFrame");
+	iframeTag.setAttribute("id","hiddenIFrame");
+	divTag.appendChild(iframeTag);
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+	
+}
+ 
+</script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* head style */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+ 
+/* Navigation bar link */
+.topnav li {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Navigation bar: change color */
+.topnav li:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.contents{
+    width: 1200px;
+    height: 500px;
+}
+    
+h1 {font-size:18px;}
+p1 {font-size:14px;}
+table,th,td
+{
+	border:1px solid black;
+}
+
+
+td
+{
+    text-align:center;
+	padding:15px;
+}
+input
+{
+	padding:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1 style="font-size:30px">Super Club</h1>
+</div>
+
+<div class="topnav">
+  <li onclick=Note()>News</li>
+  <li onclick=Race()>Match</li>
+  <li onclick=Private()>personal information</li>
+</div>
+<div class="contents" id ="contents_head">
+ <p id="contents">Choose Any Item</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Super Club</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var uh='{{uh}}';
+var identity=['News','New_Members','Old_Member','New_My_Team','New_opposition_Team','Home_Match','Away_Match','Practice','Join_Team'];
+var members_haed=['Firstname','Lastname','Addr1','Addr2','City','Email','Phone','BirthDate','MemberShipStatus','AdminAccess'];
+var match_head=['Home Team','Away Team','Time']
+var join_team=['Name','Team'];
+var old_user={{old_member | safe}};
+var name_map={{name_map | safe}};
+var my_team={{my_team | safe}};
+var other_team={{other_team | safe}};
+var team_map={{team_map | safe}}
+var grades_map={{grades_list | safe}};
+var club_map={{clubs_map | safe}};
+var club_index={{clubs_index | safe}};
+//click news will be execute
+function Note(){
+	var divTag = document.getElementById("contents_head");	//get update field
+	divTag.innerHTML = "";	//update background
+    
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	
+	//----------------------------------------------------
+	//title 
+	var trTag_title = document.createElement("tr");//label
+	var trTag_title1 = document.createElement("tr");//frame
+	var tdTag_title = document.createElement("td");
+	var tdTag_title1 = document.createElement("td");
+	var inputTag_title1 = document.createElement("input");
+	tdTag_title.innerHTML = "Title: ";
+	inputTag_title1.setAttribute("type","title");
+	inputTag_title1.setAttribute("name","title");
+	
+	tableTag.appendChild(trTag_title);
+	trTag_title.appendChild(tdTag_title);
+	trTag_title.appendChild(tdTag_title1);
+	tdTag_title1.appendChild(inputTag_title1);
+	
+	//--------------------------------------------------------------
+	//reporter
+	var trTag_reporter = document.createElement("tr");
+	var trTag_reporter1 = document.createElement("tr");
+	var tdTag_reporter = document.createElement("td");
+	var tdTag_reporter1 = document.createElement("td");
+	var inputTag_reporter1 = document.createElement("input");
+	tdTag_reporter.innerHTML = "Reporter: ";
+	inputTag_reporter1.setAttribute("type","reporter");
+	inputTag_reporter1.setAttribute("name","reporter");
+	
+	tableTag.appendChild(trTag_reporter);
+	//tableTag.appendChild(trTag_reporter1);
+	trTag_reporter.appendChild(tdTag_reporter);
+	trTag_reporter.appendChild(tdTag_reporter1);
+	tdTag_reporter1.appendChild(inputTag_reporter1);
+	
+	
+	//-------------------------------------------------------------
+	//date
+	var trTag_date = document.createElement("tr");
+	var trTag_date1 = document.createElement("tr");
+	var tdTag_date = document.createElement("td");
+	var tdTag_date1 = document.createElement("td");
+	var inputTag_date1 = document.createElement("input");
+	tdTag_date.innerHTML = "Date: ";
+	inputTag_date1.setAttribute("type","date");
+	inputTag_date1.setAttribute("name","date");
+	
+	tableTag.appendChild(trTag_date);
+	//tableTag.appendChild(trTag_date1);
+	trTag_date.appendChild(tdTag_date);
+	trTag_date.appendChild(tdTag_date1);
+	tdTag_date1.appendChild(inputTag_date1);
+	
+	
+	//--------------------------------------------------------------
+	var trTag_text = document.createElement("tr");
+	var trTag_text1 = document.createElement("tr");
+	var tdTag_text = document.createElement("td");
+	var tdTag_text1 = document.createElement("td");
+	var inputTag_text1 = document.createElement("textarea");
+	tdTag_text.innerHTML = "Contents: ";
+	inputTag_text1.setAttribute("type","text1");
+	inputTag_text1.setAttribute("name","text1");
+	
+	tableTag.appendChild(trTag_text);
+	//tableTag.appendChild(trTag_text1);
+	trTag_text.appendChild(tdTag_text);
+	trTag_text.appendChild(tdTag_text1);
+	tdTag_text1.appendChild(inputTag_text1);
+	
+	
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+
+}
+
+//click Race will be excete
+function Race(){
+    var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","What's your change?");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	formTag.setAttribute("target","hiddenIFrame");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+} 
+
+//click Private will excute
+function NewMembers(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=0;i< members_haed.length;i++){
+		var trTag=document.createElement("tr");
+		var tdTag=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		var inputTag = document.createElement("input");
+		
+		tdTag.innerHTML=members_haed[i];
+		inputTag.setAttribute("name",members_haed[i]);
+		inputTag.setAttribute("type",members_haed[i]);
+		if(members_haed[i]=="BirthDate"){
+			inputTag.setAttribute("type","date");
+		}
+		
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(inputTag);
+	}
+	
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+	
+}
+
+function OldMembers(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	var selectTag_ = document.createElement("select");
+	var trTag_=document.createElement("tr");
+	var tdTag_=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2_=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag_.setAttribute("name","membername");
+	selectTag_.setAttribute("id","member");//*****************************************************
+	tdTag_.innerHTML = "MemberName";
+	tableTag.appendChild(trTag_);
+	trTag_.appendChild(tdTag_);
+	trTag_.appendChild(tdTag2_);
+	
+	for(var i=-1;i< old_user.length;i++){
+		var optionTag_ = document.createElement("option");
+		if(i==-1){
+			optionTag_.setAttribute("value","None");
+			optionTag_.innerHTML = "-Choose name-";
+		}else{
+			optionTag_.setAttribute("value",old_user[i]['Firstname']+'-'+old_user[i]['Lastname']);
+			optionTag_.innerHTML = old_user[i]['Firstname']+'-'+old_user[i]['Lastname'];
+		}
+		selectTag_.appendChild(optionTag_);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	tdTag2_.appendChild(selectTag_);
+	
+	for(var i=0;i< members_haed.length;i++){
+		var trTag=document.createElement("tr");
+		var tdTag=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		var inputTag = document.createElement("input");
+		
+		tdTag.innerHTML=members_haed[i];
+		inputTag.setAttribute("name",members_haed[i]);
+		inputTag.setAttribute("type",members_haed[i]);
+		if(members_haed[i]=="BirthDate"){
+			inputTag.setAttribute("type","date");
+		}
+		
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(inputTag);
+	}
+	
+	//loading old_member information
+	selectTag_.onchange=function(){
+		for(var i=0;i<members_haed.length;i++){
+			var myselect2=document.getElementById("member");
+			var index=myselect2.selectedIndex ;
+			var name=myselect2.options[index].text;
+			//alert(myselect2);
+			document.getElementsByName(members_haed[i])[0].value=name_map[name][members_haed[i]];
+		}
+	}
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+	
+}
+
+function NewMyTeam(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	//team name
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");
+	var inputTag=document.createElement("input");
+	inputTag.setAttribute("name","TeamName");
+	inputTag.setAttribute("type","TeamName");
+	tdTag.innerHTML="Team Name";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag);
+	
+	//team grades
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");
+	var selectTag = document.createElement("select");
+	selectTag.setAttribute("name","grades");
+	selectTag.setAttribute("type","grades");
+	tdTag.innerHTML="Team Grades";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=1;i<=5;i+=2){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",i);
+		optionTag.innerHTML = i;
+		selectTag.appendChild(optionTag);
+		if(i==5){
+			var optionTag = document.createElement("option");
+			optionTag.setAttribute("value",i+1);
+			optionTag.innerHTML = i+1;
+			selectTag.appendChild(optionTag);
+		}
+		
+	}
+	
+	////team grades option
+	var selectTag = document.createElement("select");
+	
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+	
+}
+
+function NewOppTeam(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	//team name
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");
+	var inputTag=document.createElement("input");
+	inputTag.setAttribute("name","OppTeamName");
+	inputTag.setAttribute("type","OppTeamName");
+	tdTag.innerHTML="Opposition Team Name";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag);
+	
+	//team grades
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");
+	var selectTag = document.createElement("select");
+	selectTag.setAttribute("name","grades");
+	selectTag.setAttribute("type","grades");
+	tdTag.innerHTML="Opposition Team Grades";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=1;i<=5;i+=2){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",i);
+		optionTag.innerHTML = i;
+		selectTag.appendChild(optionTag);
+		if(i==5){
+			var optionTag = document.createElement("option");
+			optionTag.setAttribute("value",i+1);
+			optionTag.innerHTML = i+1;
+			selectTag.appendChild(optionTag);
+		}
+		
+	}
+	
+	
+	//clubs
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");
+	var selectTag = document.createElement("select");
+	selectTag.setAttribute("name","clubs");
+	selectTag.setAttribute("type","clubs");
+	tdTag.innerHTML="ClubsName";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=0;i<club_index.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",club_index[i]['name']);
+		optionTag.innerHTML = club_index[i]['name'];
+		selectTag.appendChild(optionTag);
+		
+	}
+	//alert("OK");
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+}
+
+function HomeMatch(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	formTag.setAttribute("name","mylist");
+	formTag.setAttribute("onsubmit","return MatchCheck()");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=0;i<2;i++){
+		var selectTag=document.createElement("select");
+		var trTag=document.createElement("tr");
+		var tdTag1=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag1);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(selectTag)
+		
+		selectTag.setAttribute("name",match_head[i]);
+		selectTag.setAttribute("id",match_head[i]);
+		
+		tdTag1.innerHTML=match_head[i];
+		
+		if(match_head[i]=="Home Team"){
+			for(var j=0;j< my_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",my_team[j]);
+				optionTag.innerHTML=my_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}else{
+			for(var j=0;j< other_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",other_team[j]);
+				optionTag.innerHTML=other_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}
+		//option
+		//
+		//
+		//
+	}
+	
+	//Date
+	var inputTag=document.createElement("input");
+	var trTag=document.createElement("tr");
+	var tdTag1=document.createElement("td");
+	var tdTag2=document.createElement("td");
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag1);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag)
+	
+	inputTag.setAttribute("name","date");
+	inputTag.setAttribute("type","date");
+	
+	tdTag1.innerHTML="Date";
+	
+	
+	//time
+	var inputTag=document.createElement("input");
+	var trTag=document.createElement("tr");
+	var tdTag1=document.createElement("td");
+	var tdTag2=document.createElement("td");
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag1);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag)
+	
+	inputTag.setAttribute("name","time");
+	inputTag.setAttribute("type","time");
+	
+	tdTag1.innerHTML="Time";
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+	
+	
+}
+
+function AwayMatch(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	formTag.setAttribute("name","mylist");
+	formTag.setAttribute("onsubmit","return MatchCheck()");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=0;i<2;i++){
+		var selectTag=document.createElement("select");
+		var trTag=document.createElement("tr");
+		var tdTag1=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag1);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(selectTag)
+		
+		selectTag.setAttribute("name",match_head[i]);
+		selectTag.setAttribute("id",match_head[i]);
+		
+		tdTag1.innerHTML=match_head[i];
+		
+		if(match_head[i]=="Home Team"){
+			for(var j=0;j< other_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",other_team[j]);
+				optionTag.innerHTML=other_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}else{
+			for(var j=0;j< my_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",my_team[j]);
+				optionTag.innerHTML=my_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}
+		//option
+		//
+		//
+		//
+	}
+	
+	//Date
+	var inputTag=document.createElement("input");
+	var trTag=document.createElement("tr");
+	var tdTag1=document.createElement("td");
+	var tdTag2=document.createElement("td");
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag1);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag)
+	
+	inputTag.setAttribute("name","date");
+	inputTag.setAttribute("type","date");
+	
+	tdTag1.innerHTML="Date";
+	
+	
+	//time
+	var inputTag=document.createElement("input");
+	var trTag=document.createElement("tr");
+	var tdTag1=document.createElement("td");
+	var tdTag2=document.createElement("td");
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag1);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag)
+	
+	inputTag.setAttribute("name","time");
+	inputTag.setAttribute("type","time");
+	
+	tdTag1.innerHTML="Time";
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+}
+
+function MatchCheck(){
+	var myselect1=document.getElementById("Home Team");
+	var index1=myselect1.selectedIndex;
+	var name1=myselect1.options[index1].text;
+	
+	var myselect2=document.getElementById("Away Team");
+	var index2=myselect2.selectedIndex;
+	var name2=myselect2.options[index2].text;
+	//alert(name);
+	if(team_map[name1]['TeamGrade']!=team_map[name2]['TeamGrade']){
+		alert("Error!!! Different levels. Home Team: "+name1+" is "+team_map[name1]['TeamGrade']+" and "+"Away Team: "+name2+" is "+team_map[name2]['TeamGrade']);
+		return false;
+	}
+	if(name1==name2){
+		alert("Error!!! The same team cannot compete!!!");
+		return false;
+	}
+	//return False
+}
+
+function Practice(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	formTag.setAttribute("name","mylist");
+	formTag.setAttribute("onsubmit","return MatchCheck()");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=0;i<2;i++){
+		var selectTag=document.createElement("select");
+		var trTag=document.createElement("tr");
+		var tdTag1=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag1);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(selectTag)
+		
+		selectTag.setAttribute("name",match_head[i]);
+		selectTag.setAttribute("id",match_head[i]);
+		
+		tdTag1.innerHTML=match_head[i];
+		
+		if(match_head[i]=="Home Team"){
+			for(var j=0;j< my_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",my_team[j]);
+				optionTag.innerHTML=my_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}else{
+			for(var j=0;j< my_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",my_team[j]);
+				optionTag.innerHTML=my_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}
+		//option
+		//
+		//
+		//
+	}
+	
+	//Date
+	var inputTag=document.createElement("input");
+	var trTag=document.createElement("tr");
+	var tdTag1=document.createElement("td");
+	var tdTag2=document.createElement("td");
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag1);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag)
+	
+	inputTag.setAttribute("name","date");
+	inputTag.setAttribute("type","date");
+	
+	tdTag1.innerHTML="Date";
+	
+	
+	//time
+	var inputTag=document.createElement("input");
+	var trTag=document.createElement("tr");
+	var tdTag1=document.createElement("td");
+	var tdTag2=document.createElement("td");
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag1);
+	trTag.appendChild(tdTag2);
+	tdTag2.appendChild(inputTag)
+	
+	inputTag.setAttribute("name","time");
+	inputTag.setAttribute("type","time");
+	
+	tdTag1.innerHTML="Time";
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+}
+
+function JoinTeam(){
+	var divTag = document.getElementById("contents_head");
+	divTag.innerHTML = "";
+	
+	var formTag = document.createElement("form");
+	var tableTag = document.createElement("table");
+	
+	var selectTag = document.createElement("select");
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var tdTag2=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	selectTag.setAttribute("name","identity");
+	tdTag.innerHTML = "Identity";
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	trTag.appendChild(tdTag2);
+	for(var i=-1; i< identity.length;i++){
+		var optionTag = document.createElement("option");
+		optionTag.setAttribute("value",identity[i]);
+		optionTag.innerHTML = identity[i];
+		if(i==-1){
+			optionTag.setAttribute("value","None");
+			optionTag.innerHTML = "What's your change?";
+		}
+		selectTag.appendChild(optionTag);
+	}
+	
+	formTag.setAttribute("action","admin");
+	formTag.setAttribute("method","post");
+	formTag.setAttribute("enctype","multipart/form-data");
+	formTag.setAttribute("name","mylist");
+	formTag.setAttribute("onsubmit","return JoinTeamCheck()");
+	
+	divTag.appendChild(formTag);
+	formTag.appendChild(tableTag);
+	tdTag2.appendChild(selectTag);
+	
+	for(var i=0;i<2;i++){
+		var selectTag=document.createElement("select");
+		var trTag=document.createElement("tr");
+		var tdTag1=document.createElement("td");
+		var tdTag2=document.createElement("td");
+		tableTag.appendChild(trTag);
+		trTag.appendChild(tdTag1);
+		trTag.appendChild(tdTag2);
+		tdTag2.appendChild(selectTag)
+		
+		selectTag.setAttribute("name",join_team[i]);
+		selectTag.setAttribute("id",join_team[i]);
+		
+		tdTag1.innerHTML=join_team[i];
+		
+		if(join_team[i]=="Name"){
+			for(var j=0;j< old_user.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",old_user[j]['Firstname']+'-'+old_user[j]['Lastname']);
+				optionTag.innerHTML=old_user[j]['Firstname']+'-'+old_user[j]['Lastname'];
+				selectTag.appendChild(optionTag);
+			}
+		}else{
+			for(var j=0;j< my_team.length;j++){
+				var optionTag=document.createElement("option");
+				optionTag.setAttribute("value",my_team[j]);
+				optionTag.innerHTML=my_team[j];
+				selectTag.appendChild(optionTag);
+			}
+		}
+	}
+	
+	//submit button
+	var trTag=document.createElement("tr");
+	var tdTag=document.createElement("td");//<button class="btn" type="submit">SignIn</button>
+	var butTag=document.createElement("button");
+	
+	butTag.setAttribute("class","btn");
+	butTag.setAttribute("type","submit");
+	butTag.setAttribute("onclick","alert(\"submit success\")");
+	butTag.innerHTML = "update";
+	
+	tableTag.appendChild(trTag);
+	trTag.appendChild(tdTag);
+	tdTag.appendChild(butTag);
+}
+
+function JoinTeamCheck(){
+	var myselect1=document.getElementById("Name");
+	var myselect2=document.getElementById("Team");
+	var index1=myselect1.selectedIndex ;
+	var index2=myselect2.selectedIndex ;
+	var user_name=myselect1.options[index1].text;
+	var team_name=myselect2.options[index2].text;
+	var age=GetAges(name_map[user_name]['BirthDate']);
+	var grade_id=team_map[team_name]['TeamGrade'];
+	var min_age=grades_map[grade_id]['MinAge'];
+	var max_age=grades_map[grade_id]['MaxAge'];
+	if(age>max_age || age<min_age){
+		alert("Age failure!!! "+user_name+" is "+age+". "+team_name+" require age is in ["+min_age+', '+max_age+"]");
+		return false;
+	}
+	
+}
+
+function GetAges(str){  
+	var r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);    
+	if(r==null) return("Error");    
+	var d = new Date(r[1], r[3]-1, r[4]);    
+	if(d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4])  
+	{  
+		var Y = new Date().getFullYear();  
+		return(Y-r[1]);  
+	}  
+	return("Error");  
+} 
+
+</script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* head style */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+ 
+/* Navigation bar link */
+.topnav li {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Navigation bar: change color */
+.topnav li:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.contents{
+    width: 1200px;
+    height: 500px;
+}
+    
+h1 {font-size:18px;}
+p1 {font-size:14px;}
+table,th,td
+{
+	border:1px solid black;
+}
+
+
+td
+{
+    text-align:center;
+	padding:15px;
+}
+input
+{
+	padding:10px;
+}
+textarea
+{
+	width:500px;
+	height:200px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1 style="font-size:30px">Super Club(admin)</h1>
+</div>
+
+<div id="topnav" class="topnav">
+  <li onclick=Note()>News</li>
+  <li onclick=HomeMatch()>Home Match</li>
+  <li onclick=AwayMatch()>Away Match</li>
+  <li onclick=NewMembers()>New Members</li>
+  <li onclick=OldMembers()>Old Members</li>
+  <li onclick=NewMyTeam()>New My Team</li>
+  <li onclick=NewOppTeam()>New Opposition Team</li>
+  <li onclick=Practice()>Practice</li>
+  <li onclick=JoinTeam()>Join Team</li>
+</div>
+<div class="contents" id ="contents_head">
+ <p id="contents">Choose Any Item</p>
+</div>
+
+</body>
+</html>
