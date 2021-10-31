@@ -1,13 +1,12 @@
 ---
-typora-root-url: Note_img
-
+mermaid: true
 ---
 
 ### 1. 系统演示
 
 1）登录界面，用户通过下拉菜单选择对应的姓名，点击进入即可；
 
-![login](/login.png)
+![login](Note_img/login.png)
 
 
 
@@ -15,11 +14,11 @@ typora-root-url: Note_img
 
 3)普通用户界面如下，可以查看俱乐部的最近三个News，并且可以查看自己队伍的比赛信息也可以更新自己部分信息，只需要点击菜单栏对应位置的功能按钮；
 
-![gui_member](/gui_member.png)
+![gui_member](Note_img/gui_member.png)
 
 3.1)点击News查看通知；
 
-![news_display](/news_display.png)
+![news_display](Note_img/news_display.png)
 
 
 
@@ -27,33 +26,33 @@ typora-root-url: Note_img
 
 
 
-![admin_home_match](/admin_home_match.png)
+![admin_home_match](Note_img/admin_home_match.png)
 
 3.3)点击最后一个按钮查看个人信息并可以提交修改；
 
-![user_info](/user_info.png)
+![user_info](Note_img/user_info.png)
 
 
 
 4)管理员用户界面如下，实现了增加最新的通知，添加新成员，修改成员信息，安排比赛，添加新球队，为球队填充人员等功能，界面如下；
 
-![admin_gui](/admin_gui.png)
+![admin_gui](Note_img/admin_gui.png)
 
 4.1）管理员部分功能展示，News功能，输入标题，报告人，日期，再输入通知内容点击update按钮即可提交至后台，完成数据库的更新。注意：要将Identity下拉框选至News；
 
 
 
-![news_admin](/news_admin.png)
+![news_admin](Note_img/news_admin.png)
 
 4.2）管理员部分功能展示，Home Match功能，该菜单实现了俱乐部安排主场比赛的功能，在Home Team下拉框中只能用俱乐部现有的队伍安排比赛，Away Team是客场队伍，是其他俱乐部的其他队伍，输入对应的球队和日期时间后点击提交即可，系统前端会自行判断安排的两个队伍级别是否相同，如果不相同则会弹出窗口提示级别别不相等，需要再行安排其他队伍，级别相同才能提交后台完成数据库更新；Away Match类似，只是俱乐部队伍变成了客场队伍，得在Away Team中选择；Practice按钮实现的是俱乐部内部比赛，是练习赛的作用；注意：要将Identity下拉框选至对应的提交内容，Home Match是Home_Match，Away Match是Away_Match，Practice是Practice;
 
-![admin_home_match](/admin_home_match.png)
+![admin_home_match](Note_img/admin_home_match.png)
 
 
 
 4.3) 管理员部分功能展示，Join Team功能，该菜单功能是给成员分配队伍用的，在Name下拉框中选择对应的成员名字，在Team下拉框中选择对应的队伍，注意：此时需要在Identity下选择对应的动作为Join_Team，最后点击update按钮提交表单即可，如果选中的成员年龄不符合分配队伍的资格，系统前端同样会弹出窗口提示目前该成员不能参加该队伍，需要重新分配；
 
-![join_team](/join_team.png)
+![join_team](Note_img/join_team.png)
 
 ### 2.设计路线
 
@@ -96,7 +95,7 @@ admin-->addteammember
 
 设计一个用户名下拉框选择对应的用户点击即可登录，由于储存用户信息的表member在后台MySQL数据库中，需要传递到前端供用户选择因此，在用户访问**'/'**路由时系统需要从数据库中提取member信息，并将数据格式化为字典的形似传递给前端，使用了***render_template('login.html',members=members_names)***函数渲染login模板，并将数据信息传给前端，前端需要使用***Jinja2***模板语言接收对应的数据如在login.html中使用了循环语句生成不同的用户名单。
 
-![login_idea1](/login_idea1.png)
+![login_idea1](Note_img/login_idea1.png)
 
 
 
