@@ -4,6 +4,7 @@ import pymysql
 
 #---------------------
 #MySQL define
+#Note: this is My MySQL set
 hostname='localhost'
 user='root'
 password='554646'
