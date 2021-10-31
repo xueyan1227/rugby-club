@@ -1,6 +1,3 @@
----
-mermaid: true
----
 
 ### 1. 系统演示
 
@@ -58,34 +55,7 @@ mermaid: true
 
 #### 2.1 系统流程图
 
-```mermaid
-graph TD
-login[login]
-status{admin?}
-admin[admin]
-member[member]
-check[check detail]
-lookmatch[look match]
-looknews[look news]
-addnews[add news]
-addmember[add new member]
-changemember[change member details]
-addmatch[assign a team to a race]
-addteammember[add new team member]
-
-login-->status
-status-->|yes|admin
-status-->|no|member
-member-->check
-member-->lookmatch
-member-->looknews
-
-admin-->addnews
-admin-->addmember
-admin-->changemember
-admin-->addmatch
-admin-->addteammember
-```
+![join_team](Note_img/flow.png)
 
 从登录开始，判断用户是否是admin是则进入admin页面否则进入member页面；不同界面对应了不同功能，如图所示。因此我们需要三个不同的页面，分别是login界面提供登录功能，admin界面提供系统管理功能，member界面提供用户查询和浏览功能，对应的html文件是login.html，admin.html和main.html。
 
